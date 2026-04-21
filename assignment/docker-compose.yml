@@ -3,7 +3,9 @@ version: '3.8'
 services:
   # PostgreSQL Database
   db:
-    image: postgres:13
+    build:
+      context: ./postgress
+      dockerfile: Postgress.Dockerfile
     container_name: users_db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -13,7 +15,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app_network
     healthcheck:
